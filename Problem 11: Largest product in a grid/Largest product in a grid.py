@@ -23,4 +23,31 @@ matrix = [[8, 2, 22, 97, 38, 15, 0, 40, 0, 75, 4, 5, 7, 78, 52, 12, 50, 77, 91, 
 		[20, 73, 35, 29, 78, 31, 90, 1, 74, 31, 49, 71, 48, 86, 81, 16, 23, 57, 5, 54],
 		[1, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 1, 89, 19, 67, 48]]
 
+adjacent = 4
+maxProduct = 0
+product = 0
 
+for i in range(len(matrix)):
+	for j in range(len(matrix[i])):
+		# down
+		if (i <= len(matrix) - adjacent):
+			product = matrix[i][j] * matrix[i+1][j] * matrix[i+2][j] * matrix[i+3][j]
+			if product > maxProduct:
+				maxProduct = product
+		# right
+		if (j <= len(matrix[i]) - adjacent):
+			product = matrix[i][j] * matrix[i][j+1] * matrix[i][j+2] * matrix[i][j+3]
+			if product > maxProduct:
+				maxProduct = product
+		# diagonal right
+		if (i <= len(matrix) - adjacent and j <= len(matrix[i]) - adjacent):
+			product = matrix[i][j] * matrix[i+1][j+1] * matrix[i+2][j+2] * matrix[i+3][j+3]
+			if product > maxProduct:
+				maxProduct = product
+		# diagonal left
+		if (i <= len(matrix) - adjacent and j >= adjacent - 1):
+			product = matrix[i][j] * matrix[i+1][j-1] * matrix[i+2][j-2] * matrix[i+3][j-3]
+			if product > maxProduct:
+				maxProduct = product
+
+print(maxProduct)
